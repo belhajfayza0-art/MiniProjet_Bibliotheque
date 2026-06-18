@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.bibliotheque.controllers.MainController"
+            styleClass="root">
+
+    <!-- ========== TOP : MENU ========== -->
+    <top>
+        <MenuBar>
+            <Menu text="📁 Fichier">
+                <MenuItem text="📤 Exporter CSV" onAction="#exporterLivresCSV"/>
+                <MenuItem text="🚪 Quitter" onAction="#quitterApplication"/>
+            </Menu>
+            <Menu text="❓ Aide">
+                <MenuItem text="ℹ️ À propos" onAction="#afficherAPropos"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <!-- ========== CENTER : TABPANE ========== -->
+    <center>
+        <TabPane>
+
+            <!-- ===== ONGLET 1 : LIVRES ===== -->
+            <Tab text="📚 Livres" closable="false">
+                <VBox spacing="10" style="-fx-padding: 10;">
+
+                    <Label text="Gestion des livres" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0078d4;"/>
+
+                    <!-- Formulaire -->
+                    <GridPane hgap="10" vgap="10" style="-fx-padding: 10; -fx-border-color: #ddd; -fx-border-radius: 5;">
+
+                        <!-- Ligne 0 : Titre -->
+                        <Label text="Titre :" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="titreField" promptText="Titre du livre" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300"/>
+
+                        <!-- Ligne 1 : Auteur -->
+                        <Label text="Auteur :" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="auteurField" promptText="Nom de l'auteur" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="300"/>
+
+                        <!-- Ligne 2 : ISBN -->
+                        <Label text="ISBN :" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="isbnField" promptText="Numéro ISBN" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300"/>
+
+                        <!-- Ligne 3 : Catégorie -->
+                        <Label text="Catégorie :" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold;"/>
+                        <ComboBox fx:id="categorieCombo" promptText="Choisir une catégorie" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="200"/>
+
+                        <!-- Ligne 4 : Année -->
+                        <Label text="Année :" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold;"/>
+                        <Spinner fx:id="anneeSpinner" editable="true" initialValue="2024" min="1900" max="2025" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="120"/>
+
+                        <!-- Ligne 5 : Prix -->
+                        <Label text="Prix (€) :" GridPane.columnIndex="0" GridPane.rowIndex="5" style="-fx-font-weight: bold;"/>
+                        <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <Slider fx:id="prixSlider" min="0" max="100" value="20" prefWidth="200"/>
+                            <Label fx:id="prixLabel" text="20.00 €" style="-fx-font-weight: bold; -fx-text-fill: #0078d4;"/>
+                        </HBox>
+
+                        <!-- Ligne 6 : Disponible -->
+                        <Label text="Disponible :" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-font-weight: bold;"/>
+                        <CheckBox fx:id="disponibleCheck" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                        <!-- Ligne 7 : État -->
+                        <Label text="État :" GridPane.columnIndex="0" GridPane.rowIndex="7" style="-fx-font-weight: bold;"/>
+                        <HBox spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <RadioButton fx:id="neufRadio" text="Neuf"/>
+                            <RadioButton fx:id="bonRadio" text="Bon état" selected="true"/>
+                            <RadioButton fx:id="usageRadio" text="Usagé"/>
+                        </HBox>
+
+                        <!-- Ligne 8 : Description -->
+                        <Label text="Description :" GridPane.columnIndex="0" GridPane.rowIndex="8" style="-fx-font-weight: bold;"/>
+                        <TextArea fx:id="descriptionArea" promptText="Description du livre..." prefHeight="60" prefWidth="300" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+                        <!-- Ligne 9 : Date -->
+                        <Label text="Date d'ajout :" GridPane.columnIndex="0" GridPane.rowIndex="9" style="-fx-font-weight: bold;"/>
+                        <DatePicker fx:id="datePublicationPicker" GridPane.columnIndex="1" GridPane.rowIndex="9" prefWidth="200"/>
+
+                        <!-- Ligne 10 : Boutons -->
+                        <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="10" style="-fx-padding: 5 0 0 0;">
+                            <Button text="➕ Ajouter" style="-fx-background-color: #0078d4; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 18 6 18; -fx-background-radius: 6;" onAction="#ajouterLivre"/>
+                            <Button text="✏️ Modifier" style="-fx-background-color: #ffc107; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 6 18 6 18; -fx-background-radius: 6;" onAction="#modifierLivre"/>
+                            <Button text="🗑️ Supprimer" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 18 6 18; -fx-background-radius: 6;" onAction="#supprimerLivre"/>
+                            <Button text="🔄 Réinitialiser" style="-fx-background-color: #f0f0f0; -fx-text-fill: black; -fx-font-weight: bold; -fx-padding: 6 18 6 18; -fx-background-radius: 6;" onAction="#reinitialiserFormulaireLivre"/>
+                        </HBox>
+                    </GridPane>
+
+                    <!-- Tableau des livres -->
+                    <TableView fx:id="livreTableView" VBox.vgrow="ALWAYS" style="-fx-border-color: #ddd; -fx-border-radius: 5;">
+                        <columns>
+                            <TableColumn fx:id="livreIdCol" text="ID" prefWidth="50"/>
+                            <TableColumn fx:id="livreTitreCol" text="Titre" prefWidth="150"/>
+                            <TableColumn fx:id="livreAuteurCol" text="Auteur" prefWidth="120"/>
+                            <TableColumn fx:id="livreIsbnCol" text="ISBN" prefWidth="130"/>
+                            <TableColumn fx:id="livreCategorieCol" text="Catégorie" prefWidth="100"/>
+                            <TableColumn fx:id="livreAnneeCol" text="Année" prefWidth="60"/>
+                            <TableColumn fx:id="livrePrixCol" text="Prix" prefWidth="70"/>
+                            <TableColumn fx:id="livreDisponibleCol" text="Disponible" prefWidth="80"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- ===== ONGLET 2 : STATISTIQUES ===== -->
+            <Tab text="📊 Statistiques" closable="false">
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <Label text="Statistiques de la bibliothèque" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0078d4;"/>
+
+                    <GridPane hgap="20" vgap="10" style="-fx-padding: 20; -fx-border-color: #ddd; -fx-border-radius: 5;">
+                        <Label text="📚 Total des livres :" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <Label fx:id="totalLivresLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-size: 18px; -fx-text-fill: #0078d4; -fx-font-weight: bold;"/>
+
+                        <Label text="✅ Livres disponibles :" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <Label fx:id="livresDisponiblesLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size: 18px; -fx-text-fill: #28a745; -fx-font-weight: bold;"/>
+
+                        <Label text="📖 Livres empruntés :" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <Label fx:id="livresEmpruntesLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-size: 18px; -fx-text-fill: #dc3545; -fx-font-weight: bold;"/>
+
+                        <Label text="⭐ Note moyenne :" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <Label fx:id="noteMoyenneLabel" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 18px; -fx-text-fill: #ffc107; -fx-font-weight: bold;"/>
+
+                        <Label text="📊 Taux disponibilité :" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <ProgressIndicator fx:id="disponibiliteIndicator" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    </GridPane>
+
+                    <Button text="🔄 Rafraîchir les statistiques" style="-fx-background-color: #0078d4; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 18 6 18; -fx-background-radius: 6;" onAction="#rafraichirStatistiques"/>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+    <!-- ========== BOTTOM : BARRE D'ÉTAT ========== -->
+    <bottom>
+        <HBox style="-fx-background-color: #24292f; -fx-padding: 6 15 6 15; -fx-spacing: 20;">
+            <Label fx:id="statusLabel" text="✅ Application prête" style="-fx-text-fill: white;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="dateTimeLabel" text="Bibliothèque v1.0" style="-fx-text-fill: #aaaaaa;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
