@@ -12,8 +12,8 @@ L'application **Gestion de Bibliothèque** est un logiciel développé en JavaFX
 
 ### Membres du projet
 
-- **Kaoutar Baladi** (Backend & Base de données)
-- **Fayza Belhaj** (Frontend & Interface graphique)
+- **Fayza Belhaj** (Backend & Base de données)
+- **Kaoutar Baladi** (Frontend & Interface graphique)
 
 ### Encadrement
 
