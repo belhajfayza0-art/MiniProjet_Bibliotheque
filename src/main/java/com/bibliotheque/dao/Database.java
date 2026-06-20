@@ -8,20 +8,33 @@ public class Database {
 
     private static final String URL = "jdbc:mysql://localhost:3306/bibliotheque?serverTimezone=UTC&useSSL=false";
     private static final String USER = "root";
-    private static final String PASS = ""; // Laisse vide pour Wamp
+    private static final String PASSWORD = "";  // ← Vide pour WAMP
+
+    private static Connection connection = null;
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASS);
+        if (connection == null || connection.isClosed()) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("✅ Connexion MySQL réussie !");
+            } catch (ClassNotFoundException e) {
+                System.err.println("❌ Driver MySQL non trouvé !");
+                throw new SQLException("Driver MySQL non trouvé", e);
+            }
+        }
+        return connection;
     }
 
-    // TEST : Clique sur le triangle vert pour lancer
-    public static void main(String[] args) {
-        try {
-            Connection conn = getConnection();
-            System.out.println("Connexion MySQL réussie !");
-            conn.close();
-        } catch (SQLException e) {
-            System.err.println("Échec de connexion : " + e.getMessage());
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null;
+                System.out.println("✅ Connexion fermée.");
+            } catch (SQLException e) {
+                System.err.println("❌ Erreur lors de la fermeture : " + e.getMessage());
+            }
         }
     }
 }
