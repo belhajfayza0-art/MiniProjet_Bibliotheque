@@ -2,7 +2,11 @@
 
 ## Application JavaFX de gestion de bibliothèque
 
----
+## 📄 Rapport du projet
+- [Rapport PDF](./Rapport_Gestion_Bibliotheque.pdf.pdf)
+
+## 🎬 Vidéo de démonstration
+ -[Vidéo sur Google Drive](https://drive.google.com/drive/folders/1GOrGUEQl7DeB1jlyKFVw7nJ6xRpTSW57?usp=sharing)
 
 ### Description
 
